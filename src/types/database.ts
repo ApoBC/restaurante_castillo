@@ -11,6 +11,7 @@ export type EstadoItem = 'nuevo' | 'en_preparacion' | 'listo'
 export type MetodoPago = 'efectivo' | 'tarjeta'
 export type EstadoReserva = 'pendiente' | 'confirmada' | 'cancelada' | 'completada'
 export type TipoComprobante = 'boleta' | 'factura'
+export type TipoMovimientoInventario = 'entrada' | 'salida' | 'ajuste'
 
 export interface Database {
   public: {
@@ -131,6 +132,79 @@ export interface Database {
           creado_por: string
         }
         Update: Partial<Database['public']['Tables']['reservas']['Row']>
+        Relationships: []
+      }
+      inventario: {
+        Row: {
+          id: number
+          producto_id: number
+          stock_actual: number
+          stock_minimo: number
+          unidad: string
+          updated_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['inventario']['Row']> & {
+          producto_id: number
+        }
+        Update: Partial<Database['public']['Tables']['inventario']['Row']>
+        Relationships: []
+      }
+      movimientos_inventario: {
+        Row: {
+          id: number
+          producto_id: number
+          tipo: TipoMovimientoInventario
+          cantidad: number
+          motivo: string | null
+          usuario_id: string
+          created_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['movimientos_inventario']['Row']> & {
+          producto_id: number
+          tipo: TipoMovimientoInventario
+          cantidad: number
+          usuario_id: string
+        }
+        Update: Partial<Database['public']['Tables']['movimientos_inventario']['Row']>
+        Relationships: []
+      }
+      comprobantes: {
+        Row: {
+          id: number
+          pedido_id: number
+          tipo: TipoComprobante
+          serie: string | null
+          correlativo: number | null
+          subtotal: number
+          igv: number
+          total: number
+          pdf_url: string | null
+          enviado_sunat: boolean
+          created_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['comprobantes']['Row']> & {
+          pedido_id: number
+          subtotal: number
+          total: number
+        }
+        Update: Partial<Database['public']['Tables']['comprobantes']['Row']>
+        Relationships: []
+      }
+      auditoria: {
+        Row: {
+          id: number
+          usuario_id: string | null
+          accion: string
+          entidad: string
+          entidad_id: string | null
+          detalle: Record<string, unknown> | null
+          created_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['auditoria']['Row']> & {
+          accion: string
+          entidad: string
+        }
+        Update: Partial<Database['public']['Tables']['auditoria']['Row']>
         Relationships: []
       }
     }
