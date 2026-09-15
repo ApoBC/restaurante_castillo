@@ -15,6 +15,7 @@ const ENLACES: Record<RolUsuario, { href: string; label: string }[]> = {
     { href: '/admin/reservas', label: 'Reservas' },
     { href: '/admin/inventario', label: 'Inventario' },
     { href: '/admin/usuarios', label: 'Usuarios' },
+    { href: '/admin/backup', label: 'Backup' },
   ],
   superadmin: [
     { href: '/admin', label: 'Resumen' },
@@ -23,6 +24,7 @@ const ENLACES: Record<RolUsuario, { href: string; label: string }[]> = {
     { href: '/admin/reservas', label: 'Reservas' },
     { href: '/admin/inventario', label: 'Inventario' },
     { href: '/admin/usuarios', label: 'Usuarios' },
+    { href: '/admin/backup', label: 'Backup' },
   ],
 }
 
