@@ -10,6 +10,7 @@ const ENLACES: Record<RolUsuario, { href: string; label: string }[]> = {
   cocina: [{ href: '/cocina', label: 'Cocina' }],
   admin: [
     { href: '/admin', label: 'Resumen' },
+    { href: '/admin/productos', label: 'Productos' },
     { href: '/admin/mesas', label: 'Mesas' },
     { href: '/admin/reservas', label: 'Reservas' },
     { href: '/admin/inventario', label: 'Inventario' },
@@ -17,6 +18,7 @@ const ENLACES: Record<RolUsuario, { href: string; label: string }[]> = {
   ],
   superadmin: [
     { href: '/admin', label: 'Resumen' },
+    { href: '/admin/productos', label: 'Productos' },
     { href: '/admin/mesas', label: 'Mesas' },
     { href: '/admin/reservas', label: 'Reservas' },
     { href: '/admin/inventario', label: 'Inventario' },
