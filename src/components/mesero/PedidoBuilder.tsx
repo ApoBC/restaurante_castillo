@@ -15,6 +15,7 @@ import {
   type ItemNuevo,
 } from '@/lib/queries/pedidos'
 import { useUsuarioActual } from '@/lib/hooks/useUsuarioActual'
+import { crearComprobante } from '@/lib/queries/comprobantes'
 
 const DESCUENTO_MAXIMO_MESERO = 10
 
@@ -128,12 +129,18 @@ export function PedidoBuilder({ mesaNumero }: { mesaNumero?: number }) {
     mutationFn: async (metodoPago: 'efectivo' | 'tarjeta') => {
       if (!pedidoAbierto) throw new Error('No hay pedido activo')
       await marcarPagado({ pedidoId: pedidoAbierto.id, mesaId: mesa?.id ?? null, metodoPago })
+      return crearComprobante({
+        pedidoId: pedidoAbierto.id,
+        subtotal: pedidoAbierto.subtotal,
+        total: pedidoAbierto.total,
+      })
     },
-    onSuccess: () => {
+    onSuccess: (comprobante) => {
       toast.success('Pago registrado')
       setMostrarCobro(false)
       queryClient.invalidateQueries({ queryKey: ['pedido-abierto'] })
       queryClient.invalidateQueries({ queryKey: ['mesas'] })
+      window.open(`/recibo/${comprobante.id}`, '_blank')
       router.push('/mesero')
     },
     onError: (error: Error) => toast.error(error.message),
