@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f7f6;
+  --foreground: #1c1c1c;
 }
 
 @theme inline {
@@ -12,11 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* Esta app aun no tiene un tema oscuro diseñado: sin esto, el modo
+     oscuro automático del navegador/SO invierte el fondo mientras las
+     tarjetas y textos siguen con colores fijos de tema claro, dejando
+     texto gris ilegible sobre fondo negro. */
+  color-scheme: light;
 }
 
 body {
